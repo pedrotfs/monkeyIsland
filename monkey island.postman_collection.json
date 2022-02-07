@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "ea7ed86d-e1f4-4a37-b00e-0e1b3b631975",
+		"name": "monkey island",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "lookForBananas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"island\": [ \n[\"1\", \"0\", \"1\", \"1\", \"1\"],\n[\"1\", \"0\", \"1\", \"1\", \"1\"], \n[\"1\", \"1\", \"1\", \"1\", \"1\"], \n[\"1\", \"0\", \"0\", \"1\", \"0\"] \n\n] \n\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/monkeyIsland/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"monkeyIsland",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "19796f9f-e4c6-4807-b54a-dd8d3b8cf4f8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5f91aa6b-b3cb-40df-b927-3c3444fc13ea",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

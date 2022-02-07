@@ -3,7 +3,6 @@ package br.com.pedrotfs.MonkeyIsland.service.impl;
 import br.com.pedrotfs.MonkeyIsland.service.BananaFinderService;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -12,55 +11,45 @@ public class DefaultBananaFinderService implements BananaFinderService {
     @Override
     public int findMostBananas(List<List<Integer>> forest) {
         int result = 0;
-        int positionVertical = -1;
-        int maxCurrentRow = 0;
-        int verticalSize = 0;
-        if(verticalSize == 0) {
-            verticalSize = forest.get(0).size();
-        }
-        for(int i = 0; i < forest.size(); i++) {
-            if(positionVertical < 0) { //first row
+        int maxResult = 0;
+        int horizontalSize = forest.get(0).size(); //this was validated to not change on input
 
-                for(int j = 0; j < verticalSize; j++) {
-                    Integer element = forest.get(j).get(i);
-                    if(element > maxCurrentRow) {
-                        maxCurrentRow = element;
-                        positionVertical = j;
+        for(int vertical = 0; vertical < forest.size(); vertical++) { //starting at each vertical position
+            int currentVertical = vertical;
+
+            for(int horizontalPosition = 0; horizontalPosition < horizontalSize; horizontalPosition++) { //them going to the right to look for the highest sum
+                result = result + forest.get(currentVertical).get(horizontalPosition);
+
+                if(horizontalPosition < horizontalSize - 1) { //not at the rightmost, so must have elements to the right
+                    int rightElement = forest.get(currentVertical).get(horizontalPosition + 1);
+                    int rightUpElement = 0;
+                    if(currentVertical > 0) { //not at the top, so must have elements above
+                        rightUpElement = forest.get(currentVertical - 1).get(horizontalPosition + 1);
                     }
-                }
-            } else { //other rows
-                int elementAbove = 0;
-                int element = forest.get(i).get(positionVertical);
-                int elementBelow = 0;
+                    int rightDownElement = 0;
+                    if(currentVertical < forest.size() - 1) { //not at the botton, so must have elements bellow
+                        rightDownElement = forest.get(currentVertical + 1).get(horizontalPosition + 1);
+                    }
 
-                if(positionVertical > 0) {
-                    elementAbove = forest.get(i).get(positionVertical - 1);
-                }
-                if(positionVertical < forest.size() - 1) {
-                    elementBelow = forest.get(i).get(positionVertical + 1);
-                }
+                    //determining next move by max bananas
+                    int maxAmount = Math.max(rightElement, rightUpElement);
+                    maxAmount = Math.max(maxAmount, rightDownElement);
 
-                if(elementAbove >= element && elementAbove >= elementBelow) {
-                    maxCurrentRow = elementAbove;
-                    positionVertical = positionVertical - 1;
+                    if(maxAmount == rightUpElement) {
+                        currentVertical--;
+                    } else if(maxAmount == rightDownElement){
+                        currentVertical++;
+                    }
 
                 }
-
-                if(element >= elementAbove && element >= elementBelow) {
-                    maxCurrentRow = elementAbove;
-                }
-
-                if(elementBelow >= element && elementBelow >= elementAbove) {
-                    maxCurrentRow = elementBelow;
-                    positionVertical = positionVertical + 1;
-                }
-
             }
-            result = result + maxCurrentRow;
-            maxCurrentRow = 0;
+
+            if(maxResult < result) { //getting maximum result by starting vertical
+                maxResult = result;
+            }
+            result = 0;
+
         }
-
-
-        return result;
+        return maxResult;
     }
 }

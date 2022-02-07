@@ -40,7 +40,7 @@ public class DefaultInputHandlerService implements InputHandlerService {
         return forest;
     }
 
-    public boolean validateDimensions(List<List<Integer>> matrix) {
+    private boolean validateDimensions(List<List<Integer>> matrix) {
         int size = -1;
         for(List<Integer> list : matrix) {
             if(size == -1) {

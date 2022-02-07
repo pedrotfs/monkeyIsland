@@ -27,7 +27,7 @@ public class MonkeyRestController {
     private BananaFinderService bananaFinderService;
 
     @PostMapping("/")
-    public ResponseEntity<String> bid(@RequestBody final String island) {
+    public ResponseEntity<String> findMostBananas(@RequestBody final String island) {
         LOG.info("receiving request body: " + island);
         try {
             List<List<Integer>> forest = inputHandlerService.handleInput(island);
